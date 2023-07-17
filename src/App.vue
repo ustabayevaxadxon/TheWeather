@@ -1,30 +1,67 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <div class="nav"
+         :class="{cloudy: $route.params.main === 'Clouds',
+                  sunny: $route.params.main === 'Clear',
+                  rainy: $route.params.main === 'Rain'}">
+      <router-view></router-view>
+      <navigation-bar></navigation-bar>
+    </div>
 </template>
 
+<script>
+import {defineComponent} from 'vue'
+import NavigationBar from "@/components/NavigationBar.vue";
+import {mapGetters} from "vuex";
+
+export default defineComponent({
+  name: "App",
+  components: {NavigationBar},
+  computed: {
+    ...mapGetters(['getCityDetails'])
+  }
+})
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+body {
+  font-family: 'Open Sans', sans-serif;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.nav {
+    display: flex;
+    justify-content: flex-end;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+    background-size: cover;
+    background-position: center center;
+    background-image: url("assets/default.webp");
+
+  @media (max-width: 768px) {
+    min-height: 100vh;
+    flex-direction: column-reverse;
   }
+}
+
+.cloudy {
+  background-size: cover;
+  background-position: center center;
+  background-image: url("assets/cloudy.jpg");
+}
+
+.sunny {
+  background-size: cover;
+  background-position: center center;
+  background-image: url("assets/sunny.jpg");
+}
+
+.rainy {
+  background-size: cover;
+  background-position: center center;
+  background-image: url("assets/sunny.jpg");
 }
 </style>
