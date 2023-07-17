@@ -90,6 +90,7 @@ export default defineComponent({
   }
 
   .city__name {
+    font-weight: bold;
     font-size: 34px;
     text-transform: capitalize;
 
